@@ -134,7 +134,7 @@ def main():
         temporary = Path(directory)
         library = temporary / "design.so"
         subprocess.run(["gcc", "-std=c11", "-Wall", "-Wextra", "-Werror", "-pedantic",
-                        "-shared", "-fPIC", str(ROOT / "sudoku_design.c"), "-o", str(library)], check=True)
+                        "-shared", "-fPIC", str(ROOT / "sudoku_ideation.c"), "-o", str(library)], check=True)
         c = ctypes.CDLL(str(library))
         array = ctypes.c_uint8 * 16
         c.solve.argtypes = [ctypes.POINTER(ctypes.c_uint8)]

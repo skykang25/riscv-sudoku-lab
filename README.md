@@ -9,7 +9,7 @@
 | 파일 | 역할 |
 |---|---|
 | [sudoku_baseline.s](sudoku_baseline.s) | 보고서 (a)·(b)·(c)의 기준이 되는 개선 전 구현. 기존 `sudoku1.s`의 주석까지 보존한 복사본 |
-| [sudoku_design.c](sudoku_design.c) | 같은 알고리즘을 읽기 쉬운 C로 정리한 설계 모델 |
+| [sudoku_ideation.c](sudoku_ideation.c) | 같은 알고리즘을 읽기 쉬운 C로 정리한 설계 모델 |
 | [sudoku_bitmask.s](sudoku_bitmask.s) | `solve`는 그대로 두고, `can_place`에 로컬 비트마스크·반복 펼치기·중복 검사 제거를 적용한 비교 구현 |
 | [scripts/measure.py](scripts/measure.py) | 실제 SIRVE debugger의 PTY에 중단점 명령을 입력하고 카운터 차이를 계산 |
 | [scripts/verify.py](scripts/verify.py) | 두 구현과 C 모델의 기능·호출 규약 검증 |
@@ -40,19 +40,19 @@ helper 호출, prologue/epilogue, 마지막 `ret`을 포함하며 caller의 `jal
 
 ### Before: baseline
 
-![개선 전 실제 VTE 터미널 측정 화면](assets/sudoku_baseline-terminal.png)
+![직접 캡처한 개선 전 터미널 측정 화면](assets/sudoku_baseline-terminal.png)
 
 [원본 debugger 로그](assets/sudoku_baseline-measurement.txt)
 
 ### After: bitmask
 
-![개선 후 실제 VTE 터미널 측정 화면](assets/sudoku_bitmask-terminal.png)
+![직접 캡처한 개선 후 터미널 측정 화면](assets/sudoku_bitmask-terminal.png)
 
 [원본 debugger 로그](assets/sudoku_bitmask-measurement.txt)
 
-이 이미지는 별도 Xvfb 디스플레이에서 **실제 GTK/VTE 터미널**에 SIRVE를 실행하고
-그 창의 픽셀을 캡처한 것입니다. debugger 입력은 `pexpect`가 실제 PTY로 전송합니다.
-출력 숫자를 이미지 위에 다시 그리거나 HTML로 재구성하지 않았습니다.
+이 이미지는 로컬 터미널에서 `scripts/measure.py`를 실행한 결과를 직접 캡처한 것입니다.
+측정 스크립트는 `pexpect`로 실제 SIRVE debugger의 PTY에 중단점 명령을 입력합니다.
+직접 촬영한 PNG 원본을 그대로 첨부했습니다.
 각 캡처 하단의 요약 표는 같은 세션에서 얻은 카운터의 차이를 계산한 값입니다.
 
 ## 비트마스크 구현에서 바뀐 점
@@ -81,7 +81,7 @@ GNU C compiler와 Python 3도 필요하며, 측정 스크립트는 `pexpect`를 
 sirve --asm sudoku_baseline.s run
 sirve --asm sudoku_bitmask.s run
 
-gcc -std=c11 -Wall -Wextra -Werror -pedantic -DSUDOKU_DEMO sudoku_design.c -o /tmp/sudoku-design-demo
+gcc -std=c11 -Wall -Wextra -Werror -pedantic -DSUDOKU_DEMO sudoku_ideation.c -o /tmp/sudoku-design-demo
 /tmp/sudoku-design-demo
 
 python3 scripts/verify.py
@@ -116,13 +116,10 @@ sirve --asm sudoku_baseline.s
 | bitmask | 2 | 2109 | 4567 | 2458 |
 | bitmask | 3 | 4573 | 6833 | 2260 |
 
-캡처를 다시 만들려면 Linux에서 Xvfb, GTK/VTE Python bindings, `xwininfo`,
-Python Pillow와 pexpect가 필요합니다. VTE는 GNOME Terminal에서도 사용하는 terminal widget입니다.
-
-```bash
-python3 scripts/capture_terminal.py sudoku_baseline.s
-python3 scripts/capture_terminal.py sudoku_bitmask.s
-```
+직접 캡처하려면 로컬 터미널에서 위 측정 스크립트를 각 버전에 대해 실행하고,
+중단점 기록과 하단 요약 표가 보이도록 화면을 캡처합니다. 개선 전 사진은
+`assets/sudoku_baseline-terminal.png`, 개선 후 사진은 `assets/sudoku_bitmask-terminal.png`로
+저장하면 README의 이미지 경로를 유지할 수 있습니다.
 
 ## 검증 범위
 
