@@ -137,6 +137,8 @@ python3 scripts/capture_terminal.py sudoku_bitmask.s
 
 ## 보고서에서 참조하기
 
+[보고서용 설명 예시와 커밋 고정 참조 링크](report_reference.md)를 함께 정리했습니다.
+
 보고서 (a)·(b) 및 (c)의 기본 측정표는 `sudoku_baseline.s` 기준으로 유지합니다.
 개선본 결과는 (c)의 추가 비교 자료로 표시하면 기존 캡처와 혼동하지 않습니다.
 보고서 본문에도 요구된 측정표와 software/ISA 개선 제안의 설명을 남기고,
