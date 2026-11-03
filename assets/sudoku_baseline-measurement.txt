@@ -1,0 +1,47 @@
+SIRVE debugger measurement: sudoku_baseline.s
+Command: sirve --asm sudoku_baseline.s
+Break before solve at 0x90; break after jal solve at 0x28.
+
+Assembling input file
+
+Next: li sp 0x10000
+[inst:      1 pc:      0, src line    3]
+>>ba0x90
+Break point added to address 0x00000090
+[inst:      1 pc:      0, src line    3]
+>>ba0x28
+Break point added to address 0x00000028
+[inst:      1 pc:      0, src line    3]
+>>c
+
+Next: addi sp sp -28
+[inst:     11 pc:    144, src line   50]
+>>c
+
+Next: addi s5 s5 16
+[inst:   3015 pc:     40, src line   13]
+>>c
+
+Next: addi sp sp -28
+[inst:   3021 pc:    144, src line   50]
+>>c
+
+Next: addi s5 s5 16
+[inst:   6787 pc:     40, src line   13]
+>>c
+
+Next: addi sp sp -28
+[inst:   6793 pc:    144, src line   50]
+>>c
+
+Next: addi s5 s5 16
+[inst:  10148 pc:     40, src line   13]
+>>q
+Quit command input! Exiting...
+Execution done!
+
+Puzzle   Entry   Return   Dynamic instructions
+     1      11     3015                   3004
+     2    3021     6787                   3766
+     3    6793    10148                   3355
+Count = return counter - entry counter; this is not elapsed time.

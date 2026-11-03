@@ -1,0 +1,47 @@
+SIRVE debugger measurement: sudoku_bitmask.s
+Command: sirve --asm sudoku_bitmask.s
+Break before solve at 0x90; break after jal solve at 0x28.
+
+Assembling input file
+
+Next: li sp 0x10000
+[inst:      1 pc:      0, src line    3]
+>>ba0x90
+Break point added to address 0x00000090
+[inst:      1 pc:      0, src line    3]
+>>ba0x28
+Break point added to address 0x00000028
+[inst:      1 pc:      0, src line    3]
+>>c
+
+Next: addi sp sp -28
+[inst:     11 pc:    144, src line   50]
+>>c
+
+Next: addi s5 s5 16
+[inst:   2103 pc:     40, src line   13]
+>>c
+
+Next: addi sp sp -28
+[inst:   2109 pc:    144, src line   50]
+>>c
+
+Next: addi s5 s5 16
+[inst:   4567 pc:     40, src line   13]
+>>c
+
+Next: addi sp sp -28
+[inst:   4573 pc:    144, src line   50]
+>>c
+
+Next: addi s5 s5 16
+[inst:   6833 pc:     40, src line   13]
+>>q
+Quit command input! Exiting...
+Execution done!
+
+Puzzle   Entry   Return   Dynamic instructions
+     1      11     2103                   2092
+     2    2109     4567                   2458
+     3    4573     6833                   2260
+Count = return counter - entry counter; this is not elapsed time.

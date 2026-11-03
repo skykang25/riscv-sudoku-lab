@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+*.o
+*.so
+*.swp
+build/
+assets/*-capture-debug.png
